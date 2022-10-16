@@ -5,29 +5,25 @@ ordinamento bubble sort di un array senza le []
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DIM 5
-
-int main(int argc, char const *argv[])
+//lettura della lunghezza
+int leggiNum()
 {
-    int *v;
+    int n;
 
-    //malloc
-    v = (int *)malloc(sizeof(int) * DIM);
-
-    //caricamento vettore
-    for (int i = 0; i < DIM; i++)
+    do
     {
-        printf("%d: ", i + 1);
-        scanf("%d", (v + i));
-    }
+        scanf("%d", &n);
+    } while (n < 0);
 
-    printf("\n");
+    return n;
+}
 
-    //variabile temporanea
+// bubble sort di ordinamento crescente
+void bubbleSort(int *v, int dim)
+{
     int temp = 0;
 
-    //bubble sort di ordinamento crescente
-    for (int i = 1; i < DIM; i++)
+    for (int i = 1; i < dim; i++)
     {
         for (int j = 0; j < i; j++)
         {
@@ -39,15 +35,41 @@ int main(int argc, char const *argv[])
             }
         }
     }
+}
 
-    //stampa vettore
-    for (int i = 0; i < DIM; i++)
+void stampaVet(int *v, int dim)
+{
+    for (int i = 0; i < dim; i++)
     {
         printf("%d ", *(v + i));
     }
 
     printf("\n");
+}
 
+int main(int argc, char const *argv[])
+{
+    int *v;
+    int dim;
+
+    printf("lunghezza: ");
+    dim = leggiNum();
+
+    // malloc
+    v = (int *)malloc(sizeof(int) * dim);
+
+    //caricamento vettore
+    for (int i = 0; i < dim; i++)
+    {
+        printf("%d: ", i + 1);
+        scanf("%d", (v + i));
+    }
+
+    printf("\n");
+
+    bubbleSort(v, dim);
+    stampaVet(v, dim);
+    
     //liberazione memoria
     free(v);
 
