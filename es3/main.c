@@ -27,7 +27,7 @@ int readFile(FILE *fp, char *riga, int lung)
         i++;
     }
 
-    return i + 1;
+    return i;
 }
 
 void oridnaDecrescente(Persona *p, int dim)
@@ -38,7 +38,6 @@ void oridnaDecrescente(Persona *p, int dim)
         {
             if ((p + i)->date < (p + j)->date)
             {
-                // ERRORE
                 Persona temp = *(p + i);
                 *(p + i) = *(p + j);
                 *(p + j) = temp;
@@ -51,7 +50,7 @@ void printStruct(Persona *p, int dim)
 {
     for (int i = 0; i < dim; i++)
     {
-        printf("surname: %s, name: %s, date: %d\n\n", (p + i)->surname, (p + i)->name, (p + i)->date);
+        printf("surname: %s, name: %s, date: %d\n", (p + i)->surname, (p + i)->name, (p + i)->date);
     }
 }
 
@@ -61,11 +60,9 @@ void spezzoRiga(FILE *fp, char *riga, int lung, Persona *p, int dim)
 
     while (fgets(riga, LUNG, fp))
     {
-        (p + i)->surname = strtok(riga, ",");
-        (p + i)->name = strtok(NULL, ",");
+        (p + i)->surname = strdup(strtok(riga, ","));
+        (p + i)->name = strdup(strtok(NULL, ","));
         (p + i)->date = atoi(strtok(NULL, ","));
-
-        printf("surname: %s, name: %s, date: %d\n", (p + i)->surname, (p + i)->name, (p + i)->date);
 
         i++;
     }
